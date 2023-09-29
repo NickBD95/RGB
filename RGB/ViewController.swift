@@ -32,15 +32,10 @@ final class ViewController: UIViewController {
             redColorValue.text = String(format: "%.2f", redColorSlider.value)
         }
         
-        rgbDisplay.backgroundColor = UIColor(
-            red: CGFloat(redColorSlider.value),
-            green: CGFloat(greenColorSlider.value),
-            blue: CGFloat(blueColorSlider.value),
-            alpha: CGFloat(1)
-        )
+        setCurrentColor()
     }
     
-    @IBAction func greenSliderAction() {
+    @IBAction func greenSliderAction(){
         
         if greenColorSlider.value == 0.0 {
             greenColorValue.text = String(format: "%.1f", greenColorSlider.value)
@@ -48,14 +43,9 @@ final class ViewController: UIViewController {
             greenColorValue.text = String(format: "%.2f", greenColorSlider.value)
         }
         
-        rgbDisplay.backgroundColor = UIColor(
-            red: CGFloat(redColorSlider.value),
-            green: CGFloat(greenColorSlider.value),
-            blue: CGFloat(blueColorSlider.value),
-            alpha: CGFloat(1)
-        )
+        setCurrentColor()
     }
-    @IBAction func blueSliderAction() {
+    @IBAction func blueSliderAction(){
         
         if blueColorSlider.value == 0.0 {
             blueColorValue.text = String(format: "%.1f", blueColorSlider.value)
@@ -63,6 +53,11 @@ final class ViewController: UIViewController {
             blueColorValue.text = String(format: "%.2f", blueColorSlider.value)
         }
         
+        setCurrentColor()
+    }
+    
+    //MARK: Private methods
+    private func setCurrentColor(){
         rgbDisplay.backgroundColor = UIColor(
             red: CGFloat(redColorSlider.value),
             green: CGFloat(greenColorSlider.value),

@@ -26,7 +26,7 @@ final class ViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func redSliderAction(){
-        if redColorSlider.value == 0.0 {
+        if redColorSlider.value < 0.01 {
             redColorValue.text = String(format: "%.1f", redColorSlider.value)
         } else {
             redColorValue.text = String(format: "%.2f", redColorSlider.value)
@@ -37,7 +37,7 @@ final class ViewController: UIViewController {
     
     @IBAction func greenSliderAction(){
         
-        if greenColorSlider.value == 0.0 {
+        if greenColorSlider.value < 0.01 {
             greenColorValue.text = String(format: "%.1f", greenColorSlider.value)
         } else {
             greenColorValue.text = String(format: "%.2f", greenColorSlider.value)
@@ -47,7 +47,7 @@ final class ViewController: UIViewController {
     }
     @IBAction func blueSliderAction(){
         
-        if blueColorSlider.value == 0.0 {
+        if blueColorSlider.value < 0.01  {
             blueColorValue.text = String(format: "%.1f", blueColorSlider.value)
         } else {
             blueColorValue.text = String(format: "%.2f", blueColorSlider.value)

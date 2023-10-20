@@ -7,7 +7,12 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
+protocol SettingViewControllerDelegate: AnyObject {
+    func sendColorToStartView(_ color: UIColor)
+
+}
+
+final class SettingViewController: UIViewController {
     
     @IBOutlet weak var rgbDisplay: UIView!
     
@@ -19,19 +24,34 @@ final class ViewController: UIViewController {
     @IBOutlet weak var greenColorSlider: UISlider!
     @IBOutlet weak var blueColorSlider: UISlider!
     
+    weak var delegate: SettingViewControllerDelegate!
+    
+     var currenColor: UIColor!
+     var bgColorFromStartView: UIColor!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         rgbDisplay.layer.cornerRadius = 10
+        
         setCurrentColor()
+        navigationItem.hidesBackButton = true
+       
+        rgbDisplay.backgroundColor = bgColorFromStartView
+        
+//        let color = bgColorFromStartView
+        let ciColor = CIColor(color: bgColorFromStartView ?? .red)
+        
+        redColorSlider.value = Float(ciColor.red)
+        greenColorSlider.value = Float(ciColor.green)
+        blueColorSlider.value = Float(ciColor.blue)
+        
         setCurrentValue(slider: redColorSlider, label: redColorValue)
         setCurrentValue(slider: greenColorSlider, label: greenColorValue)
         setCurrentValue(slider: blueColorSlider, label: blueColorValue)
-        
     }
     
     // MARK: - Actions
     @IBAction func redSliderAction(){
-        
         setCurrentColor()
         setCurrentValue(slider: redColorSlider, label: redColorValue)
     }
@@ -45,15 +65,22 @@ final class ViewController: UIViewController {
         setCurrentValue(slider: blueColorSlider, label: blueColorValue)
     }
     
+    @IBAction func doneButtonPressed() {
+        delegate.sendColorToStartView(currenColor)
+        dismiss(animated: true)
+    }
+    
     //MARK: Private methods
-    private func setCurrentColor(){
-        rgbDisplay.backgroundColor = UIColor(
+    private func setCurrentColor() {
+        currenColor = UIColor(
             red: CGFloat(redColorSlider.value),
             green: CGFloat(greenColorSlider.value),
             blue: CGFloat(blueColorSlider.value),
             alpha: CGFloat(1)
         )
+        rgbDisplay.backgroundColor = currenColor
     }
+    
     private func getFormatValue(for slider: UISlider) -> String {
         slider.value < 0.01 ? "%.1f" : "%.2f"
     }
